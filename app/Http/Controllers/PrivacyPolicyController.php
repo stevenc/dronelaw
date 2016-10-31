@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use DB;
+
 class PrivacyPolicyController extends Controller
 {
     /**
@@ -23,9 +25,57 @@ class PrivacyPolicyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getStep(Request $request, $step)
+    public function createStep(Request $request, $step)
     {
-        //
+        $user = $request->user();
+        
+        $company = $user->company()->first();
+
+        switch ($step) {
+            case '1':
+                $check_boxes = DB::table('personal_info_collected')
+                                             ->select('id', 'info')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '2':
+                $check_boxes = DB::table('additional_info')
+                                             ->select('info')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '3':
+                $check_boxes = DB::table('info_channels')
+                                             ->select('channel')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+            
+            case '4':
+                $check_boxes = DB::table('info_uses')
+                                             ->select('use')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '5':
+                $check_boxes = DB::table('share_circumstances')
+                                             ->select('circumstance')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '6':
+                $check_boxes = DB::table('stop_methods')
+                                             ->select('method')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+        }
+
+        return view('privacy_policy.create_steps.step_' . $step, compact('company', 'check_boxes'));
     }
 
     /**
@@ -34,9 +84,189 @@ class PrivacyPolicyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeStep(Request $request, $step)
     {
-        //
+
+        dd($request->input());
+        $company_id = $request->input()->company_id;
+        
+        switch ($step) {
+            case '1':
+                $privacy_policy_id = DB::table('privacy_policies')
+                               ->insertGetId(['company_id' => $company_id,
+                                'current_step' => $step
+                                ]);
+                $check_box_1 = $request->check_box_id_1 ?? null;
+                if (isset($check_box_1)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_id_1]);
+                }
+                $check_box_2 = $request->check_box_id_2 ?? null;
+                if (isset($check_box_2)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_2]);
+                }
+                $check_box_3 = $request->check_box_id_3 ?? null;
+                if (isset($check_box_3)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_3]);
+                }
+                $check_box_4 = $request->check_box_id_4 ?? null;
+                if (isset($check_box_4)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_4]);
+                }
+                $check_box_5 = $request->check_box_id_5 ?? null;
+                if (isset($check_box_5)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_5]);
+                }
+                $check_box_6 = $request->check_box_id_6 ?? null;
+                if (isset($check_box_6)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_6]);
+                }
+                $check_box_7 = $request->check_box_id_7 ?? null;
+                if (isset($check_box_7)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_7]);
+                }
+                $check_box_8 = $request->check_box_id_8 ?? null;
+                if (isset($check_box_8)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_8]);
+                }
+                $check_box_9 = $request->check_box_id_9 ?? null;
+                if (isset($check_box_9)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_9]);
+                }
+                $check_box_10 = $request->check_box_id_10 ?? null;
+                if (isset($check_box_10)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_10]);
+                }
+                $check_box_11 = $request->check_box_id_11 ?? null;
+                if (isset($check_box_11)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert(['privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_id_11]);
+                }
+
+                break;
+
+            case '2':
+                $privacy_policy_id = DB::table('privacy_policies')
+                               ->insertGetId(['company_id' => $company_id,
+                                'current_step' => $step
+                                ]);
+                $check_box_1 = $request->check_box_id_1 ?? null;
+                if (isset($check_box_1)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_id_1);
+                }
+                $check_box_2 = $request->check_box_id_2 ?? null;
+                if (isset($check_box_2)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_2);
+                }
+                $check_box_3 = $request->check_box_id_3 ?? null;
+                if (isset($check_box_3)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_3);
+                }
+                $check_box_4 = $request->check_box_id_4 ?? null;
+                if (isset($check_box_4)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_4);
+                }
+                $check_box_5 = $request->check_box_id_5 ?? null;
+                if (isset($check_box_5)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_5);
+                }
+                $check_box_6 = $request->check_box_id_6 ?? null;
+                if (isset($check_box_6)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_6);
+                }
+                $check_box_7 = $request->check_box_id_7 ?? null;
+                if (isset($check_box_7)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_7);
+                }
+                $check_box_8 = $request->check_box_id_8 ?? null;
+                if (isset($check_box_8)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_8);
+                }
+                $check_box_9 = $request->check_box_id_9 ?? null;
+                if (isset($check_box_9)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_9);
+                }
+                $check_box_10 = $request->check_box_id_10 ?? null;
+                if (isset($check_box_10)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_10);
+                }
+                $check_box_11 = $request->check_box_id_11 ?? null;
+                if (isset($check_box_11)) {
+                    DB::table('privacy_policies_personal_info_collected')
+                      ->insert('privacy_policy_id' => $privacy_policy_id,
+                        'personal_info_collected_id' => $check_box_id_11);
+                }
+
+                break;
+
+            case '3':
+                $check_boxes = DB::table('info_channels')
+                                             ->select('channel')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+            
+            case '4':
+                $check_boxes = DB::table('info_uses')
+                                             ->select('use')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '5':
+                $check_boxes = DB::table('share_circumstances')
+                                             ->select('circumstance')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+
+            case '6':
+                $check_boxes = DB::table('stop_methods')
+                                             ->select('method')
+                                             ->orderBy('order')
+                                             ->get();
+                break;
+        }      
     }
 
     /**
@@ -68,7 +298,7 @@ class PrivacyPolicyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateStep(Request $request, $step)
     {
         //
     }

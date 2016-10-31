@@ -7,20 +7,20 @@
             <div class="panel panel-default">
                 <div class="panel-heading" style="background-color: #f5f5f5;"><h3>UAV Specific Website Agreements - Privacy Policy - Step 2</h3></div>
                     <div class="panel-body">
-                        {!! Form::open(['route' ->['privacy-policy.postStep', 2], 'class'=> 'form-horizontal', 'role' => 'form']]) !!}
+                        {!! Form::open(['action' ->['PrivacyPolicyController@getStep', 2], 'class'=> 'form-horizontal', 'role' => 'form']]) !!}
                           <p>
                             Select those options that apply.
                           </p>
                           {!! Form::hidden('company_id', $company_id) !!}
-                          @foreach ($additional_info as $info)
-                          <div class="checkbox">
-                            {!! Form::label($info->info, $info->info) !!}       
-                          </div>
+                          @foreach ($check_boxes as $check_box)
                             <div class="checkbox">
-                              {!! Form::checkbox($info->info, $info->id) !!} 
+                              <label>
+                                <input type="checkbox" name="{{ 'check_box_' . $check_box->id }}" value="{{ $check_box->id }}">
+                               {{ $check_box->info }}
+                              </label>
                             </div>
                           @endforeach
-                          {!! Form::textarea('additional_info_other', [class => "form-control", rows => "3"]) !!}
+                          {!! Form::textarea('additional_info_other', ['class' => 'form-control', 'rows' => '3']) !!}
                           <br>
                           <button type="submit" class="btn btn-primary">Save</button>
                         {!! Form::close() !!}

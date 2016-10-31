@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" style="background-color: #f5f5f5;"><h3>UAV Specific Website Agreements - Privacy Policy - Step 2</h3></div>
                     <div class="panel-body">
-                        {!! Form::open(['route' ->['privacy-policy.postStep', 2], 'class'=> 'form-horizontal', 'role' => 'form']]) !!}
+                        {!! Form::open(['action' ->['PrivacyPolicyController@updateStep', 2], 'class'=> 'form-horizontal', 'role' => 'form']]) !!}
                           <p>
                             Select those options that apply.
                           </p>

@@ -32,9 +32,14 @@ Route::resource('copyright-policy', 'CopyrightPolicyController', ['only' => [
 
 Route::get('privacy-policy/download', 'PrivacyPolicyController@download');
 
-Route::get('privacy-policy/step', 'PrivacyPolicyController', ['only' => [
-    'show', 'create', 'store', 'edit', 'update', 'index'
-]]);
+Route::get('privacy-policy/step/{step}/create', 'PrivacyPolicyController@createStep');
+
+Route::post('privacy-policy/step/{step}', 'PrivacyPolicyController@storeStep');
+
+Route::match(array('PUT', 'PATCH'), 'privacy-policy/step/{step}', array(
+      'uses' => 'PrivacyPolicyController@updateStep',
+      'as' => 'privacy-policy.update'
+));
 
 Route::get('terms-of-use/download', 'TermsOfUseController@download');
 

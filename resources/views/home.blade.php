@@ -14,50 +14,52 @@
                                 <td><a class="btn btn-primary" href="{{ url('company/' . $company->id . '/edit') }}" role="button">Edit</a></td>
                                 <td></td>
                             </tr>
-                                @if ($company->completed && isset($copyright_policy))
+                                @if ($company->completed)
+                                    @if (isset($copyright_policy))
                                     <tr>
                                         <th>Copyright Policy</th>
                                         <td><a class="btn btn-primary" href="{{ url('copyright-policy/' . $copyright_policy->id . '/edit') }}" role="button">Edit</a></td>
                                         @if ($copyright_policy->completed)
-                                            <td><a class="btn btn-success" href="{{ url('copyright-policy/download') }}" role="button">Download</a></td>
+                                        <td><a class="btn btn-success" href="{{ url('copyright-policy/download') }}" role="button">Download</a></td>
                                         @endif
                                     </tr>
-                                    @if ($copyright_policy->completed && isset($privacy_policy))
-                                        <tr>
-                                            <th>Privacy Policy</th>
-                                            <td><a class="btn btn-primary" href="{{ url('privacy-policy/' . $privacy_policy->id . '/step/' . (string)($privacy_policy->current_step + 1)) }}" role="button">Edit</a></td>
-                                            @if ($privacy_policy->current_step == 6)
-                                                <td><a class="btn btn-success" href="{{ url('privacy-policy/' . $privacy_policy->id . '/download') }}" role="button">Download</a></td>
-                                            @endif
-                                        </tr>
-                                        @if (($privacy_policy->current_step == 6) && isset($terms_of_use))
-                                            <tr>
-                                                <th>Terms Of Use</th>
-                                                <td><a class="btn btn-primary" href="{{ url('terms-of-use/' . $terms_of_use->id . '/edit') }}" role="button">Edit</a></td>
-                                                @if ($terms_of_use->completed)
-                                                    <td><a class="btn btn-success" href="#" role="button">Download</a></td>
-                                                @endif
-                                            </tr>
-                                        @elseif ($privacy_policy->current_step == 6)
-                                            <tr>
-                                                <th>Terms Of Use</th>
-                                                <td><a class="btn btn-primary" href="{{ url('terms-of-use/create') }}" role="button">Create</a></td>
-                                                <td></td>
-                                            </tr>
-                                        @endif
-                                    @elseif ($copyright_policy->completed)
-                                         <tr>
-                                            <th>Privacy Policy</th>
-                                            <td><a class="btn btn-primary" href="{{ url('privacy-policy/create') }}" role="button">Create</a></td>
-                                            <td></td>
-                                        </tr>
-                                    @endif
-                                @elseif ($company->completed)
+                                    @else
                                     <tr>
                                         <th>Copyright Policy</th>
                                         <td><a class="btn btn-primary" href="{{ url('copyright-policy/create') }}" role="button">Create</a></td>
                                         <td></td>
                                     </tr>
+                                    @endif
+                                    @if (isset($privacy_policy))
+                                    <tr>
+                                        <th>Privacy Policy</th>
+                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/' . (string)($privacy_policy->current_step)) }}" role="button">Edit</a></td>
+                                        @if ($privacy_policy->completed)
+                                            <td><a class="btn btn-success" href="{{ url('privacy-policy/' . $privacy_policy->id . '/download') }}" role="button">Download</a></td>
+                                        @endif
+                                    </tr>
+                                    @else
+                                    <tr>
+                                        <th>Privacy Policy</th>
+                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/1/create') }}" role="button">Create</a></td>
+                                        <td></td>
+                                    </tr>
+                                    @endif
+                                    @if (isset($terms))
+                                    <tr>
+                                        <th>Terms Of Use</th>
+                                        <td><a class="btn btn-primary" href="{{ url('terms-of-use/step/' . (string)($terms_of_use->current_step)) }}" role="button">Edit</a></td>
+                                        @if ($terms_of_use->completed)
+                                            <td><a class="btn btn-success" href="#" role="button">Download</a></td>
+                                        @endif
+                                    </tr>
+                                    @else
+                                    <tr>
+                                        <th>Terms Of Use</th>
+                                        <td><a class="btn btn-primary" href="{{ url('terms-of-use/step/1/create') }}" role="button">Create</a></td>
+                                        <td></td>
+                                    </tr>
+                                    @endif
                                 @endif
                             @else
                             <tr>
