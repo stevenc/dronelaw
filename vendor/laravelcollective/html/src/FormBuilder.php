@@ -475,7 +475,7 @@ class FormBuilder
         $options = $this->setTextAreaSize($options);
 
         $options['id'] = $this->getIdAttribute($name, $options);
-
+        
         $value = (string) $this->getValueAttribute($name, $value);
 
         unset($options['size']);

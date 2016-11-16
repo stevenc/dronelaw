@@ -33,7 +33,7 @@
                                     @if (isset($privacy_policy))
                                     <tr>
                                         <th>Privacy Policy</th>
-                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/' . (string)($privacy_policy->current_step)) }}" role="button">Edit</a></td>
+                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/' . $privacy_policy->current_step) }}" role="button">Edit</a></td>
                                         @if ($privacy_policy->completed)
                                             <td><a class="btn btn-success" href="{{ url('privacy-policy/' . $privacy_policy->id . '/download') }}" role="button">Download</a></td>
                                         @endif
@@ -41,11 +41,11 @@
                                     @else
                                     <tr>
                                         <th>Privacy Policy</th>
-                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/1/create') }}" role="button">Create</a></td>
+                                        <td><a class="btn btn-primary" href="{{ url('privacy-policy/step/1') }}" role="button">Create</a></td>
                                         <td></td>
                                     </tr>
                                     @endif
-                                    @if (isset($terms))
+                                    @if (isset($terms_of_use))
                                     <tr>
                                         <th>Terms Of Use</th>
                                         <td><a class="btn btn-primary" href="{{ url('terms-of-use/step/' . (string)($terms_of_use->current_step)) }}" role="button">Edit</a></td>

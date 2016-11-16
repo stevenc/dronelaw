@@ -9,23 +9,34 @@
                   <h3>UAV Specific Website Agreements - Privacy Policy - Step 3</h3>
                 </div>
                     <div class="panel-body">
-                        {!! Form::open(['action' => ['PrivacyPolicyController@storeStep', 3], 'class'=> 'form-horizontal', 'role' => 'form']) !!}
+                        {!! Form::open(['action' => ['PrivacyPolicyController@updateStep', 3], 'class'=> 'form-horizontal', 'role' => 'form']) !!}
                           <p>
                             Select those options that apply.
                           </p>
-                          {!! Form::hidden('company_id', $company->id) !!}
+                          {!! Form::hidden('company_id', $company_id) !!}
                           @foreach ($check_boxes as $check_box)
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="{{ 'check_box_' . $check_box->id }}" id="{{ 'check_box_' . $check_box->id }}" value="{{ $check_box->id }}">
-                             {{ $check_box->channel }}
+                              <input type="checkbox" name="{{ 'check_box_' . $check_box->id }}" id="{{ 'check_box_' . $check_box->id }}" value="{{ $check_box->id }}" {{ isset($arr_check_boxes_selected[$check_box->id]) ? 'checked' : '' }}>
+                              {{ $check_box->channel }}
                             </label>
                           </div>
                           @endforeach
                           <br>
+                          @if (isset($arr_check_boxes_selected))
+                            @if (array_key_exists(6, $arr_check_boxes_selected))
+                            <div id="description">
+                              {!! Form::textarea('description', $description->description, ['class' => 'form-control', 'rows' => 4, 'cols' => 98]) !!}
+                            @else
+                            <div id="description" style="display:none;">
+                              {!! Form::textarea('description', '', ['class' => 'form-control', 'rows' => 4, 'cols' => 98]) !!}
+                            @endif
+                            </div>
+                          @else
                           <div id="description" style="display:none;">
-                            {!! Form::textarea('description', '', ['class' => 'form-control', 'rows' => '3']) !!}
+                              {!! Form::textarea('description', '', ['class' => 'form-control', 'rows' => 4, 'cols' => 98]) !!}
                           </div>
+                          @endif
                           <br>
                           <button name="previous" type="submit" class="btn btn-primary">Previous</button>
                           <button name="next" type="submit" class="btn btn-primary">Next</button>
